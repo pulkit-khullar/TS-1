@@ -6,6 +6,7 @@ import { JWT_SECRET, STATUS_CODE_ERROR, STATUS_CODE_SUCCESS } from '../helpers/c
 import jwt from 'jsonwebtoken';
 
 import { userSchema, IUser } from '../models/user';
+import { cartSchema, ICart } from '../models/cart';
 
 export class UserController {
 
@@ -35,14 +36,14 @@ export class UserController {
             if (userExists && await bcrypt.compare(req.body.password, userExists.password)) {
                 const token = jwt.sign(
                     {
-                        _id: req.body.username
+                        _id: userExists._id
                     },
                     JWT_SECRET,
                     {
                         expiresIn: '6h'
                     });
                 res.header('auth-token', token);
-                res.status(STATUS_CODE_SUCCESS).send('Login Successful');
+                return res.status(STATUS_CODE_SUCCESS).send('Login Successful');
             } else {
                 return res.status(STATUS_CODE_ERROR).send('Username or password is incorrect!');
             }
@@ -76,7 +77,12 @@ export class UserController {
                 // password: helperObj.getHashedPassword(req.body.password)
             }).save();
 
-            res.status(STATUS_CODE_SUCCESS).send(registeredUser);
+            await new cartSchema({
+                itemList: [],
+                forUser: registeredUser._id
+            }).save();
+
+            return res.status(STATUS_CODE_SUCCESS).send(registeredUser);
         } catch (error) {
             console.error(error.message);
             return res.status(STATUS_CODE_ERROR).send(error.message);

@@ -17,7 +17,7 @@ class BaseRoutes {
     }
     allRoutes() {
         this.router.get("/", (req, res) => {
-            res.send('API HOME');
+            return res.send('API HOME');
         });
         this.router.post("/login", this.userController.login);
         this.router.post("/register", this.userController.register);

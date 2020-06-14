@@ -1,15 +1,20 @@
 import mongoose from 'mongoose';
 
-const ItemSchema: mongoose.Schema = new mongoose.Schema({
-    item: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Store',
-        required: true
-    }
-});
+export interface ICart extends mongoose.Document {
+    itemList: any[],
+    forUser: string
+}
 
 const CartSchema: mongoose.Schema = new mongoose.Schema({
-    itemList: [ItemSchema],
+    itemList: [
+        {
+            itemId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Store',
+                required: true
+            }
+        }
+    ],
     forUser: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -17,4 +22,5 @@ const CartSchema: mongoose.Schema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Cart', CartSchema);
+export const cartSchema: mongoose.Model<ICart> = mongoose.model<ICart>('Cart', CartSchema);
+// module.exports = mongoose.model('Cart', CartSchema);

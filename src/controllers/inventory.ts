@@ -18,7 +18,7 @@ export class InventoryController {
 
             const list = await storeSchema.find();
 
-            res.status(STATUS_CODE_SUCCESS).send(list);
+            return res.status(STATUS_CODE_SUCCESS).send(list);
 
         } catch (error) {
             console.error(error);
@@ -60,7 +60,7 @@ export class InventoryController {
                 make: req.body.make
             }).save();
 
-            res.status(STATUS_CODE_SUCCESS).send(item);
+            return res.status(STATUS_CODE_SUCCESS).send(item);
 
         } catch (error) {
             console.error(error);

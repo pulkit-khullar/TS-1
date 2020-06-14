@@ -19,6 +19,7 @@ const helpers_1 = require("../helpers/helpers");
 const constants_1 = require("../helpers/constants");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const user_1 = require("../models/user");
+const cart_1 = require("../models/cart");
 class UserController {
     constructor() {
         this.login;
@@ -42,12 +43,12 @@ class UserController {
                 const userExists = yield user_1.userSchema.findOne({ "username": req.body.username });
                 if (userExists && (yield bcrypt_1.default.compare(req.body.password, userExists.password))) {
                     const token = jsonwebtoken_1.default.sign({
-                        _id: req.body.username
+                        _id: userExists._id
                     }, constants_1.JWT_SECRET, {
                         expiresIn: '6h'
                     });
                     res.header('auth-token', token);
-                    res.status(constants_1.STATUS_CODE_SUCCESS).send('Login Successful');
+                    return res.status(constants_1.STATUS_CODE_SUCCESS).send('Login Successful');
                 }
                 else {
                     return res.status(constants_1.STATUS_CODE_ERROR).send('Username or password is incorrect!');
@@ -80,7 +81,11 @@ class UserController {
                     password: hashedPasswords
                     // password: helperObj.getHashedPassword(req.body.password)
                 }).save();
-                res.status(constants_1.STATUS_CODE_SUCCESS).send(registeredUser);
+                yield new cart_1.cartSchema({
+                    itemList: [],
+                    forUser: registeredUser._id
+                }).save();
+                return res.status(constants_1.STATUS_CODE_SUCCESS).send(registeredUser);
             }
             catch (error) {
                 console.error(error.message);

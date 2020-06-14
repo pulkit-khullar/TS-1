@@ -19,7 +19,7 @@ export class BaseRoutes {
 
     allRoutes() {
         this.router.get("/", (req: Request, res: Response) => {
-            res.send('API HOME');
+            return res.send('API HOME');
         });
 
         this.router.post("/login", this.userController.login);

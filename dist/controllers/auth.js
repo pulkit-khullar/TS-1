@@ -8,19 +8,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const constants_1 = require("../helpers/constants");
 class AuthController {
     constructor() {
-        this.getJwtPayload;
         this.verifyJwt;
-    }
-    getJwtPayload(token) {
-        try {
-            const token = "";
-            const payloadData = jsonwebtoken_1.default.decode(token);
-            return payloadData ? payloadData.id : null;
-        }
-        catch (error) {
-            console.error(error.message);
-            throw new Error('Error while getting userID');
-        }
     }
     verifyJwt(req, res, next) {
         try {

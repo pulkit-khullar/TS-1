@@ -27,7 +27,7 @@ class InventoryController {
             try {
                 const authController = new auth_1.AuthController();
                 const list = yield store_1.storeSchema.find();
-                res.status(constants_1.STATUS_CODE_SUCCESS).send(list);
+                return res.status(constants_1.STATUS_CODE_SUCCESS).send(list);
             }
             catch (error) {
                 console.error(error);
@@ -68,7 +68,7 @@ class InventoryController {
                     price: req.body.price,
                     make: req.body.make
                 }).save();
-                res.status(constants_1.STATUS_CODE_SUCCESS).send(item);
+                return res.status(constants_1.STATUS_CODE_SUCCESS).send(item);
             }
             catch (error) {
                 console.error(error);
