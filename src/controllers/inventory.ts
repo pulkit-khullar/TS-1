@@ -1,23 +1,70 @@
 import { Router, Application, Request, Response, NextFunction } from 'express';
 import Joi from '@hapi/joi';
-import { Helpers } from '../helpers/helpers';
+import { JWT_SECRET, STATUS_CODE_ERROR, STATUS_CODE_SUCCESS } from '../helpers/constants';
 import { AuthController } from './auth';
 
+import { storeSchema, IStore } from '../models/store';
+
 export class InventoryController {
+
+    constructor() {
+        this.getInventory;
+        this.addInvnetory;
+    }
 
     public async getInventory(req: Request, res: Response) {
         try {
             const authController: AuthController = new AuthController();
 
-            // const userId: string = authController.getJwtPayload(req.header('auth-token'));
+            const list = await storeSchema.find();
 
-            /**
-             *  PERFORM DB OPERATIONS AND RETURN THE PRODUCT LISTS
-             */
+            res.status(STATUS_CODE_SUCCESS).send(list);
 
         } catch (error) {
             console.error(error);
-            return res.status(Helpers.STATUS_CODE_ERROR).send(error.message);
+            return res.status(STATUS_CODE_ERROR).send(error.message);
+        }
+    }
+
+    public async addInvnetory(req: Request, res: Response) {
+        const schema = Joi.object({
+            name: Joi
+                .string()
+                .required(),
+            description: Joi
+                .string()
+                .required(),
+            price: Joi
+                .number()
+                .min(1)
+                .strict()
+                .required(),
+            make: Joi
+                .number()
+                .integer()
+                .min(1900)
+                .max(2020)
+                .strict()
+                .required(),
+        });
+        try {
+            const validate = await schema.validate(req.body);
+            if (validate.error != null) {
+                return res.status(STATUS_CODE_ERROR).send(validate.error.details[0].message);
+            }
+
+            const item = await new storeSchema({
+                name: req.body.name,
+                description: req.body.description,
+                price: req.body.price,
+                make: req.body.make
+            }).save();
+
+            res.status(STATUS_CODE_SUCCESS).send(item);
+
+        } catch (error) {
+            console.error(error);
+            return res.status(STATUS_CODE_ERROR).send(error.message);
         }
     }
 }

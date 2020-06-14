@@ -23,12 +23,12 @@ export class BaseRoutes {
         });
 
         this.router.post("/login", this.userController.login);
+        this.router.post("/register", this.userController.register);
 
+        this.router.post("/addInvnetory", this.inventoryController.addInvnetory);
         this.router.post("/getInvnetory", this.inventoryController.getInventory);
-        // this.router.post("/getInvnetory", this.authController.verifyJwt, this.inventoryController.getInventory);
 
         this.router.post("/getCart", this.authController.verifyJwt, this.cartController.getCart);
-
         this.router.post("/cartOpearations", this.authController.verifyJwt, this.cartController.cartOpearations);
     }
 }

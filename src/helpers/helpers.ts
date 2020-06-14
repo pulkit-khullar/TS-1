@@ -1,7 +1,7 @@
-export class Helpers {
-    public static readonly STATUS_CODE_ERROR = 500;
-    public static readonly STATUS_CODE_SUCCESS = 200;
-    public static readonly STATUS_CODE_UNAUTHORISED = 401;
-    public static readonly JWT_SECRET = "as65d4qw65qwd6523!@#$";
+import bcrypt from 'bcrypt';
+import { SALT } from '../helpers/constants';
 
+export const getHashedPassword = async (password: string): Promise<string> => {
+    const hashedPassword = await bcrypt.hash(password, SALT);
+    return hashedPassword;
 }

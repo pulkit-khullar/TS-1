@@ -10,7 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CartController = void 0;
-const helpers_1 = require("../helpers/helpers");
+// import Helpers from '../helpers/helpers';
+const constants_1 = require("../helpers/constants");
 class CartController {
     getCart(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -18,7 +19,7 @@ class CartController {
             }
             catch (error) {
                 console.error(error);
-                return res.status(helpers_1.Helpers.STATUS_CODE_ERROR).send(error.message);
+                return res.status(constants_1.STATUS_CODE_ERROR).send(error.message);
             }
         });
     }
@@ -28,7 +29,7 @@ class CartController {
             }
             catch (error) {
                 console.error(error);
-                return res.status(helpers_1.Helpers.STATUS_CODE_ERROR).send(error.message);
+                return res.status(constants_1.STATUS_CODE_ERROR).send(error.message);
             }
         });
     }
