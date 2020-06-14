@@ -55,3 +55,4 @@ export const STATUS_CODE_UNAUTHORISED = 401;
 export const JWT_SECRET = "as65d4qw65qwd6523!@#$";
 export const MONGO_CONNECTION_STRING = "mongodb+srv://programmersstudio:crownstack@cluster0-hpbre.mongodb.net/crownstack?retryWrites=true&w=majority";
 export const SALT = 10;
+export const PORT = 5000;

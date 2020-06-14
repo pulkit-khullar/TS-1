@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import mongoose, { Error } from 'mongoose';
 
-import { MONGO_CONNECTION_STRING } from './helpers/constants';
+import { MONGO_CONNECTION_STRING , PORT} from './helpers/constants';
 import { BaseRoutes } from './routes/baseRoutes';
 
 class Server {
@@ -23,7 +23,7 @@ class Server {
         this.app.use(bodyParser.urlencoded({
             extended: true
         }));
-        this.app.set("port", process.env.PORT || 3000);
+        this.app.set("port", PORT || 5000);
     }
 
     public routes(): void {
