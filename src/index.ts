@@ -6,7 +6,7 @@ import mongoose, { Error } from 'mongoose';
 import { MONGO_CONNECTION_STRING , PORT} from './helpers/constants';
 import { BaseRoutes } from './routes/baseRoutes';
 
-class Server {
+export default class Server {
     public app: Application;
 
     constructor() {

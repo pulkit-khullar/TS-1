@@ -8,7 +8,7 @@ export class AuthController {
         this.verifyJwt;
     }
 
-    public verifyJwt(req: Request, res: Response, next: NextFunction) {
+    public async verifyJwt(req: Request, res: Response, next: NextFunction) {
         try {
             const token: any = req.header('auth-token');
             if (!token) {

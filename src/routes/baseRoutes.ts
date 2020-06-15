@@ -17,7 +17,7 @@ export class BaseRoutes {
         this.allRoutes();
     }
 
-    allRoutes() {
+    async allRoutes() {
         this.router.get("/", (req: Request, res: Response) => {
             return res.send('API HOME');
         });

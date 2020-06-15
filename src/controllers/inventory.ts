@@ -14,8 +14,6 @@ export class InventoryController {
 
     public async getInventory(req: Request, res: Response) {
         try {
-            const authController: AuthController = new AuthController();
-
             const list = await storeSchema.find();
 
             return res.status(STATUS_CODE_SUCCESS).send(list);

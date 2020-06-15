@@ -10,7 +10,7 @@ export const getHashedPassword = async (password: string): Promise<string> => {
 export const getJwtPayload = async (token: any): Promise<string> => {
     try {
         const payloadData: any = jwt.decode(token);
-        return payloadData ? payloadData._id : null;
+        return payloadData._id;
     } catch (error) {
         console.error(error.message);
         throw new Error('Error while getting userID');
