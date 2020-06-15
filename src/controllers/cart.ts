@@ -10,7 +10,6 @@ export class CartController {
     public async getCart(req: Request, res: Response) {
         try {
             const userId = await getJwtPayload(req.header('auth-token'));
-            // const cart = await cartSchema.find({ forUser: userId });
             const cart = await cartSchema.find({ forUser: userId }).populate('forUser', 'itemList.itemId');
             return res.status(STATUS_CODE_SUCCESS).send(cart);
         } catch (error) {

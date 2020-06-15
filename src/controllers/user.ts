@@ -74,7 +74,6 @@ export class UserController {
             const registeredUser = await new userSchema({
                 username: req.body.username,
                 password: hashedPasswords
-                // password: helperObj.getHashedPassword(req.body.password)
             }).save();
 
             await new cartSchema({
