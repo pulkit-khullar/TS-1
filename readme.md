@@ -1,4 +1,4 @@
-### CROWNSTACK - CAMERA STORE
+### CAMERA STORE
 
 ## REQUIREMENTS
 - List store inventory
