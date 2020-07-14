@@ -1,4 +1,4 @@
-import { Router, Application, Request, Response, NextFunction } from 'express';
+import { Router, Request, Response } from 'express';
 import { UserController } from '../controllers/user';
 import { InventoryController } from '../controllers/inventory';
 import { CartController } from '../controllers/cart';
@@ -25,10 +25,10 @@ export class BaseRoutes {
         this.router.post("/login", this.userController.login);
         this.router.post("/register", this.userController.register);
 
-        this.router.post("/addInvnetory", this.inventoryController.addInvnetory);
-        this.router.post("/getInvnetory", this.inventoryController.getInventory);
+        this.router.post("/addInventory", this.inventoryController.addInventory);
+        this.router.post("/getInventory", this.inventoryController.getInventory);
 
         this.router.post("/getCart", this.authController.verifyJwt, this.cartController.getCart);
-        this.router.post("/cartOpearations", this.authController.verifyJwt, this.cartController.cartOpearations);
+        this.router.post("/cartOperations", this.authController.verifyJwt, this.cartController.cartOperations);
     }
 }

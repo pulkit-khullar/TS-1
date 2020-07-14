@@ -1,18 +1,17 @@
-import { Router, Application, Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import Joi from '@hapi/joi';
-import { JWT_SECRET, STATUS_CODE_ERROR, STATUS_CODE_SUCCESS } from '../helpers/constants';
-import { AuthController } from './auth';
+import { STATUS_CODE_ERROR, STATUS_CODE_SUCCESS } from '../helpers/constants';
 
-import { storeSchema, IStore } from '../models/store';
+import { storeSchema } from '../models/store';
 
 export class InventoryController {
 
     constructor() {
         this.getInventory;
-        this.addInvnetory;
+        this.addInventory;
     }
 
-    public async getInventory(req: Request, res: Response) {
+    public async getInventory(res: Response) {
         try {
             const list = await storeSchema.find();
 
@@ -24,7 +23,7 @@ export class InventoryController {
         }
     }
 
-    public async addInvnetory(req: Request, res: Response) {
+    public async addInventory(req: Request, res: Response) {
         const schema = Joi.object({
             name: Joi
                 .string()

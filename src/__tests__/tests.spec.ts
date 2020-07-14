@@ -47,7 +47,7 @@ describe('Testing inventory controller', () => {
         expect(login.header['auth-token']).not.toEqual(null);
         const auth = login.header['auth-token'];
 
-        const inventory = await request.post("/api/getInvnetory").set({
+        const inventory = await request.post("/api/getInventory").set({
             'auth-token': auth
         }).send();
         expect(inventory).not.toEqual(null);
@@ -63,7 +63,7 @@ describe('Testing inventory controller', () => {
         expect(login.header['auth-token']).not.toEqual(null);
         const auth = login.header['auth-token'];
 
-        const inventory = await request.post("/api/addInvnetory").set({
+        const inventory = await request.post("/api/addInventory").set({
             'auth-token': auth
         }).send({
             "name": Date.now() + "",
@@ -73,7 +73,7 @@ describe('Testing inventory controller', () => {
         });
         expect(inventory).not.toEqual(null);
 
-        const inventoryErr = await request.post("/api/addInvnetory").set({
+        const inventoryErr = await request.post("/api/addInventory").set({
             'auth-token': auth + 'exception'
         }).send({
             "name": Date.now() + "",
@@ -173,19 +173,19 @@ describe('Testing cart controller', () => {
             'auth-token': auth + '_invalid'
         }).send();
         expect(cart.status).toEqual(500);
-        expect(cart.text).toEqual("Invalue User!");
+        expect(cart.text).toEqual("Invalid User!");
 
         done();
     });
 
-    test('testing getCart - UnAuthorised', async (done) => {
+    test('testing getCart - UnAuthorized', async (done) => {
         const cart = await request.post("/api/getCart").send();
         expect(cart).not.toEqual(null);
 
         done();
     });
     
-    test('testing cartOpearations', async (done) => {
+    test('testing cartOperations', async (done) => {
         const login = await request.post("/api/login").send({
             username: "pulkit",
             password: "pulkit"
@@ -193,7 +193,7 @@ describe('Testing cart controller', () => {
         expect(login.header['auth-token']).not.toEqual(null);
         const auth = login.header['auth-token'];
 
-        const inventory = await request.post("/api/getInvnetory").set({
+        const inventory = await request.post("/api/getInventory").set({
             'auth-token': auth
         }).send();
         expect(inventory.status).toEqual(200);
@@ -201,7 +201,7 @@ describe('Testing cart controller', () => {
 
         const data = JSON.parse(inventory.text);
 
-        const cartAdd = await request.post("/api/cartOpearations").set({
+        const cartAdd = await request.post("/api/cartOperations").set({
             'auth-token': auth
         }).send({
             "operation": "ADD",
@@ -209,7 +209,7 @@ describe('Testing cart controller', () => {
         });
         expect(cartAdd.status).toEqual(200);
 
-        const cartSub = await request.post("/api/cartOpearations").set({
+        const cartSub = await request.post("/api/cartOperations").set({
             'auth-token': auth
         }).send({
             "operation": "SUB",
@@ -217,7 +217,7 @@ describe('Testing cart controller', () => {
         });
         expect(cartSub.status).toEqual(200);
 
-        const bodyValidation = await request.post("/api/cartOpearations").set({
+        const bodyValidation = await request.post("/api/cartOperations").set({
             'auth-token': auth
         }).send({
             "operation": 100,
@@ -225,7 +225,7 @@ describe('Testing cart controller', () => {
         });
         expect(bodyValidation.status).toEqual(500);
 
-        const invalidOperation = await request.post("/api/cartOpearations").set({
+        const invalidOperation = await request.post("/api/cartOperations").set({
             'auth-token': auth
         }).send({
             "operation": 'MUL',

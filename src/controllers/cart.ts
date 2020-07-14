@@ -1,9 +1,8 @@
-import { Router, Application, Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import Joi from '@hapi/joi';
 import { getJwtPayload } from '../helpers/helpers';
-import { JWT_SECRET, STATUS_CODE_ERROR, STATUS_CODE_SUCCESS, STATUS_CODE_UNAUTHORISED } from '../helpers/constants';
-import { AuthController } from './auth';
-import { cartSchema, ICart } from '../models/cart';
+import { STATUS_CODE_ERROR, STATUS_CODE_SUCCESS } from '../helpers/constants';
+import { cartSchema } from '../models/cart';
 
 export class CartController {
 
@@ -18,7 +17,7 @@ export class CartController {
         }
     }
 
-    public async cartOpearations(req: Request, res: Response) {
+    public async cartOperations(req: Request, res: Response) {
         const schema = Joi.object({
             operation: Joi
                 .string()
@@ -36,7 +35,6 @@ export class CartController {
             const userId = await getJwtPayload(req.header('auth-token'));
 
             if (req.body.operation === 'ADD') {
-                const item = { "itemId": req.body.productId };
                 const updatedCart = await cartSchema.findOneAndUpdate({ forUser: userId }, { $push: { itemList: { itemId: req.body.productId } } }, {new: true}).populate('forUser', 'itemList.itemId');
                 return res.status(STATUS_CODE_SUCCESS).send(updatedCart);
             } else if (req.body.operation === 'SUB') {

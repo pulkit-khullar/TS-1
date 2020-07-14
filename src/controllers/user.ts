@@ -1,12 +1,12 @@
-import { Router, Application, Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import Joi from '@hapi/joi';
 import bcrypt from 'bcrypt';
 import { getHashedPassword } from '../helpers/helpers';
 import { JWT_SECRET, STATUS_CODE_ERROR, STATUS_CODE_SUCCESS } from '../helpers/constants';
 import jwt from 'jsonwebtoken';
 
-import { userSchema, IUser } from '../models/user';
-import { cartSchema, ICart } from '../models/cart';
+import { userSchema } from '../models/user';
+import { cartSchema } from '../models/cart';
 
 export class UserController {
 
