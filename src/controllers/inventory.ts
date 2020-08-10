@@ -11,7 +11,7 @@ export class InventoryController {
         this.addInventory;
     }
 
-    public async getInventory(res: Response) {
+    public async getInventory(req: Request, res: Response) {
         try {
             const list = await storeSchema.find();
 

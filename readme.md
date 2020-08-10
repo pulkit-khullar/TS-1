@@ -27,7 +27,7 @@
     }
   ```
 
-- ```/api/addInvnetory```
+- ```/api/addInventory```
   Request Body
   ```json
     POST
@@ -39,7 +39,7 @@
     }
   ```
  
- - ```/api/getInvnetory```
+ - ```/api/getInventory```
   Request Body
   ```json
     POST
@@ -56,7 +56,7 @@
     
     **auth-token:TOKEN**
   
-- ```/api/cartOpearations```
+- ```/api/cartOperations```
   Request Body
   ```json
     POST
@@ -75,7 +75,7 @@
   ```json
     POST
     {
-      "operation": "add",
+      "operation": "ADD",
       "productId": "5ee60151ea97389152022f24"
     }
   ```
